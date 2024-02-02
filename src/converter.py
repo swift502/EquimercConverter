@@ -70,9 +70,9 @@ class Converter:
             image = Image.open(file)
 
             if mode == Converter.MODE.TO_EQUIRECTANGULAR:
-                newImage = Image.new(image.mode, (int(image.width * math.pi * 0.5), image.height))
+                newImage = Image.new(image.mode, (image.width * 2, image.height))
             else:
-                newImage = Image.new(image.mode, (image.width, int(image.height * math.pi * 0.5)))
+                newImage = Image.new(image.mode, (image.width, image.height * 2))
 
             pixels = image.load()
             newPixels = newImage.load()
