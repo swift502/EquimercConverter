@@ -2,9 +2,7 @@
 
 # EquirectangularMercatorConverter
 
-Converts images between equirectangular to mercator projection.
-
-Expands the original image to new aspect ratio and fills in missing pixels using nearest sampling.
+Converts images between equirectangular to mercator projection. Expands the original image to new aspect ratio and fills in missing pixels using nearest sampling.
 
 ### Usage
 
@@ -13,7 +11,7 @@ Expands the original image to new aspect ratio and fills in missing pixels using
     ```
     pip install -r requirements.txt
     ```
-1. Run the demo
+1. Run the [demo script](example.py)
     ```
     python example.py
     ```
