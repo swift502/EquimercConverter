@@ -77,7 +77,7 @@ class Converter:
             pixels = image.load()
             newPixels = newImage.load()
 
-            total = newImage.width * newImage.height
+            total = newImage.width
             progress = 0
             for x in range(newImage.width):
                 for y in range(newImage.height):
@@ -90,7 +90,7 @@ class Converter:
                     sampleX = round(u * (image.width - 1))
                     sampleY = round(v * (image.height - 1))
                     newPixels[x, y] = pixels[sampleX, sampleY]
-                    progress += 1
+                progress += 1
                 Converter.progressBar(progress, total)
 
             newImage.save(output)
