@@ -13,9 +13,9 @@ Converts images between equirectangular to mercator projection. Expands the imag
     ```
     pip install -r requirements.txt
     ```
-1. Run the [demo script](example.py)
+1. Run the [demo script](demo.py)
     ```
-    python example.py
+    python demo.py
     ```
 
 ### Limitations
