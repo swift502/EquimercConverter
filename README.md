@@ -2,7 +2,7 @@
 
 # EquirectangularMercatorConverter
 
-Two-directional image projection converter. Single-script, readable Python.
+Bi-directional image projection converter. Single-script, readable Python.
 
 Converts images between equirectangular and mercator projections. Expands the image to new aspect ratio and fills in missing pixels using nearest sampling.
 
