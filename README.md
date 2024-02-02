@@ -2,7 +2,7 @@
 
 # EquirectangularMercatorConverter
 
-Single script, readable Python projection converter.
+Single-file image projection converter. Written in Python.
 
 Converts images between equirectangular to mercator projection. Expands the image to new aspect ratio and fills in missing pixels using nearest sampling.
 
