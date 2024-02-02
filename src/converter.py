@@ -90,8 +90,10 @@ class Converter:
                     sampleX = round(u * (image.width - 1))
                     sampleY = round(v * (image.height - 1))
                     newPixels[x, y] = pixels[sampleX, sampleY]
+                
                 progress += 1
-                Converter.progressBar(progress, total)
+                if progress % 20 == 0 or progress == total:
+                    Converter.progressBar(progress, total)
 
             newImage.save(output)
             print(f"\033[32mSuccess!\033[0m")
