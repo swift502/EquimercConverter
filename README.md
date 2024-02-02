@@ -11,8 +11,8 @@ Expands the original image to new aspect ratio and fills in missing pixels using
     ```
     pip install -r requirements.txt
     ```
-1. Run
+1. Run the demo
     ```
-    python src/example.py
+    python example.py
     ```
     

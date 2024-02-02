@@ -5,11 +5,11 @@ from pathlib import Path
 import math
 from enum import Enum
 
-class ConversionType(Enum):
-    TO_EQUIRECTANGULAR = 1
-    TO_MERCATOR = 2
-
 class Converter:
+
+    class MODE(Enum):
+        TO_EQUIRECTANGULAR = 1
+        TO_MERCATOR = 2
 
     MERC_MAX_LON = 2 * math.atan(math.pow(math.e, math.pi)) - math.pi * 0.5
 
@@ -59,34 +59,42 @@ class Converter:
 
         return (x, y)
 
-    # path = Path(sys.argv[1])
-    def convert(input: str, output: str, mode: ConversionType):
-        file = Path(input)
+    def convert(input: str, output: str, mode: MODE):
+        try:
+            file = Path(input)
 
-        print(f"\nProcessing \"{file.name}\"")
-        image = Image.open(file)
-        newImage = Image.new(image.mode, (image.width, int(image.height * math.pi * 0.5)))
+            if mode == Converter.MODE.TO_EQUIRECTANGULAR:
+                print(f"\nConverting \"{file.name}\" from mercator to equirectangular.")
+            else:
+                print(f"\nConverting \"{file.name}\" from equirectangular to mercator.")
 
-        pixels = image.load()
-        newPixels = newImage.load()
+            image = Image.open(file)
 
-        total = newImage.width * newImage.height
-        progress = 0
-        for x in range(newImage.width):
-            for y in range(newImage.height):
-                (equiX, equiY) = Converter.merc_to_equi(x / newImage.width, y / newImage.height)
-                sampleX = round(equiX * (image.width - 1))
-                sampleY = round(equiY * (image.height - 1))
-                newPixels[x, y] = pixels[sampleX, sampleY]
-                progress += 1
-            Converter.progressBar(progress, total)
+            if mode == Converter.MODE.TO_EQUIRECTANGULAR:
+                newImage = Image.new(image.mode, (image.width, int(image.height * math.pi * 0.5)))
+            else:
+                newImage = Image.new(image.mode, (int(image.height * math.pi * 0.5), image.width))
 
-        # split = str(file).split(".")
-        # split[-2] += "_processed2"
-        # newPath = '.'.join(split)
-        newImage.save(output)
+            pixels = image.load()
+            newPixels = newImage.load()
 
-        print(f"\033[32mConverted!\033[0m")
+            total = newImage.width * newImage.height
+            progress = 0
+            for x in range(newImage.width):
+                for y in range(newImage.height):
+                    (equiX, equiY) = Converter.merc_to_equi(x / newImage.width, y / newImage.height)
+                    sampleX = round(equiX * (image.width - 1))
+                    sampleY = round(equiY * (image.height - 1))
+                    newPixels[x, y] = pixels[sampleX, sampleY]
+                    progress += 1
+                Converter.progressBar(progress, total)
+
+            newImage.save(output)
+            print(f"\033[32mSuccess!\033[0m")
+
+        except Exception as e:
+            print("\033[31mError:\033[0m")
+            print(e)
     
     def progressBar(iteration, total, length = 50):
         # Call in a loop to create terminal progress bar
