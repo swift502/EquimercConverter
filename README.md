@@ -1,6 +1,8 @@
+![](data/preview.png)
+
 # EquirectangularMercatorConverter
 
-Converts images from equirectangular to mercator projection.
+Converts images between equirectangular to mercator projection.
 
 Expands the original image to new aspect ratio and fills in missing pixels using nearest sampling.
 
@@ -15,4 +17,11 @@ Expands the original image to new aspect ratio and fills in missing pixels using
     ```
     python example.py
     ```
-    
+
+### Limitations
+
+The conversion process can't handle latitude angles of 85+ degress well. Images converted to mercator will have 5 degree sections around poles cropped, while images converted to equirectangular have a stretched 5 degree strip on top and bottom.
+
+### Performance
+
+Conversion can take a long time for larger images. PyPy might be a lot faster, I haven't tested it though.

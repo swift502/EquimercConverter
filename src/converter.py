@@ -1,5 +1,4 @@
 import sys
-import os
 from PIL import Image
 from pathlib import Path
 import math
@@ -11,6 +10,7 @@ class Converter:
         TO_EQUIRECTANGULAR = 1
         TO_MERCATOR = 2
 
+    # https://paulbourke.net/panorama/webmerc2sphere/index.html
     MERC_MAX_LON = 2 * math.atan(math.pow(math.e, math.pi)) - math.pi * 0.5
 
     def remap(value, oldMin, oldMax, newMin, newMax):
@@ -27,8 +27,7 @@ class Converter:
         # equirectangular to mercator
         x = lat
         lon = Converter.clamp(lon, -Converter.MERC_MAX_LON, Converter.MERC_MAX_LON)
-        tan = math.tan(math.pi / 4 + lon / 2)
-        y = math.log(tan)
+        y = math.log(math.tan(math.pi / 4 + lon / 2))
 
         # mercator to uv
         x = Converter.remap(x, 0, 2 * math.pi, 0, 1)
@@ -45,7 +44,7 @@ class Converter:
         lat = Converter.remap(u, 0, 1, 0, 2 * math.pi)
         lon = Converter.remap(v, 0, 1, -math.pi, math.pi)
 
-        # equirectangular to mercator
+        # mercator to equirectangular
         x = lat
         y = math.atan(math.pow(math.e, lon)) * 2 - math.pi / 2
 
@@ -64,16 +63,16 @@ class Converter:
             file = Path(input)
 
             if mode == Converter.MODE.TO_EQUIRECTANGULAR:
-                print(f"\nConverting \"{file.name}\" from mercator to equirectangular.")
+                print(f"\nConverting \"{file.name}\" to equirectangular.")
             else:
-                print(f"\nConverting \"{file.name}\" from equirectangular to mercator.")
+                print(f"\nConverting \"{file.name}\" to mercator.")
 
             image = Image.open(file)
 
             if mode == Converter.MODE.TO_EQUIRECTANGULAR:
-                newImage = Image.new(image.mode, (image.width, int(image.height * math.pi * 0.5)))
+                newImage = Image.new(image.mode, (int(image.width * math.pi * 0.5), image.height))
             else:
-                newImage = Image.new(image.mode, (int(image.height * math.pi * 0.5), image.width))
+                newImage = Image.new(image.mode, (image.width, int(image.height * math.pi * 0.5)))
 
             pixels = image.load()
             newPixels = newImage.load()
@@ -82,10 +81,13 @@ class Converter:
             progress = 0
             for x in range(newImage.width):
                 for y in range(newImage.height):
-                    (equiX, equiY) = Converter.merc_to_equi(x / newImage.width, y / newImage.height)
-                    sampleX = round(equiX * (image.width - 1))
-                    sampleY = round(equiY * (image.height - 1))
-                    newPixels[x, y] = pixels[sampleX, sampleY]
+                    if mode == Converter.MODE.TO_EQUIRECTANGULAR:
+                        # Running through an equi image, we need to sample merc
+                        (sampleX, sampleY) = Converter.equi_to_merc(x / newImage.width, y / newImage.height)
+                    else:
+                        # Running through a merc image, we need to sample equi
+                        (sampleX, sampleY) = Converter.merc_to_equi(x / newImage.width, y / newImage.height)
+                    newPixels[x, y] = pixels[sampleX * (image.width - 1), sampleY * (image.height - 1)]
                     progress += 1
                 Converter.progressBar(progress, total)
 

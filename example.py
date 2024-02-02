@@ -8,6 +8,6 @@ Converter.convert(
 
 # Convert mercator to equirectangular
 Converter.convert(
-    input="./data/merc.png",
-    output="./data/merc_to_equi.png",
+    input="./data/merc.jpg",
+    output="./data/merc_to_equi.jpg",
     mode=Converter.MODE.TO_EQUIRECTANGULAR)
