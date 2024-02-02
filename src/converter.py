@@ -83,13 +83,13 @@ class Converter:
                 for y in range(newImage.height):
                     if mode == Converter.MODE.TO_EQUIRECTANGULAR:
                         # Running through an equi image, we need to sample merc
-                        (sampleX, sampleY) = Converter.equi_to_merc(x / newImage.width, y / newImage.height)
+                        (u, v) = Converter.equi_to_merc(x / newImage.width, y / newImage.height)
                     else:
                         # Running through a merc image, we need to sample equi
-                        (sampleX, sampleY) = Converter.merc_to_equi(x / newImage.width, y / newImage.height)
-                    u = round(sampleX * (image.width - 1))
-                    v = round(sampleY * (image.height - 1))
-                    newPixels[x, y] = pixels[u, v]
+                        (u, v) = Converter.merc_to_equi(x / newImage.width, y / newImage.height)
+                    sampleX = round(u * (image.width - 1))
+                    sampleY = round(v * (image.height - 1))
+                    newPixels[x, y] = pixels[sampleX, sampleY]
                     progress += 1
                 Converter.progressBar(progress, total)
 
