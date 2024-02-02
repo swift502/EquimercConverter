@@ -87,7 +87,9 @@ class Converter:
                     else:
                         # Running through a merc image, we need to sample equi
                         (sampleX, sampleY) = Converter.merc_to_equi(x / newImage.width, y / newImage.height)
-                    newPixels[x, y] = pixels[sampleX * (image.width - 1), sampleY * (image.height - 1)]
+                    u = round(sampleX * (image.width - 1))
+                    v = round(sampleY * (image.height - 1))
+                    newPixels[x, y] = pixels[u, v]
                     progress += 1
                 Converter.progressBar(progress, total)
 
