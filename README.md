@@ -1,6 +1,6 @@
 ![](data/preview.png)
 
-# EquirectangularMercatorConverter
+# Equirectangular-Mercator Projection Converter
 
 Bi-directional image projection converter. Single-script, readable Python.
 
