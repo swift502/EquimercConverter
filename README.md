@@ -1,6 +1,8 @@
 # EquirectangularMercatorConverter
 
-Converts images from equirectangular to mercator projection using Python.
+Converts images from equirectangular to mercator projection.
+
+Expands the original image to new aspect ratio and fills in missing pixels using nearest sampling.
 
 ### Usage
 
@@ -11,4 +13,6 @@ Converts images from equirectangular to mercator projection using Python.
     ```
 1. Run
     ```
-    python converter.py equi.png
+    python src/example.py
+    ```
+    
