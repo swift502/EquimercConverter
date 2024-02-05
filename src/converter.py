@@ -14,6 +14,7 @@ class Converter:
             else:
                 print(f"\nConverting \"{file.name}\" to equirectangular.")
 
+            Image.MAX_IMAGE_PIXELS = None
             image = Image.open(file)
             
             if device == DEVICE.GPU:
@@ -22,7 +23,7 @@ class Converter:
                 newImage: Image.Image = cpu_render.render(image, conversion)
             
             directory = os.path.dirname(output)
-            if not os.path.exists(directory):
+            if len(directory) > 0 and not os.path.exists(directory):
                 os.makedirs(directory)
 
             newImage.save(output)
