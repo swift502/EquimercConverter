@@ -7,3 +7,7 @@ class FORMAT(Enum):
 class RENDER_MODE(Enum):
     CPU = 1
     GPU = 2
+
+class SAMPLING(Enum):
+    LINEAR = 1
+    NEAREST = 2

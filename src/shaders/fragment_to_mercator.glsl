@@ -11,29 +11,29 @@ float remap(float value, float oldMin, float oldMax, float newMin, float newMax)
     return ((value - oldMin) / (oldMax - oldMin)) * (newMax - newMin) + newMin;
 }
 
-vec2 equi_to_merc(float u, float v)
+vec2 merc_to_equi(float u, float v)
 {
-    // uv to equirectangular
+    // uv to mercator
     float lat = remap(u, 0, 1, 0, 2 * M_PI);
-    float lon = remap(v, 0, 1, -M_PI * 0.5, M_PI * 0.5);
+    float lon = remap(v, 0, 1, -M_PI, M_PI);
 
-    // equirectangular to mercator
+    // mercator to equirectangular
     float x = lat;
-    float y = log(tan(M_PI / 4 + lon / 2));
+    float y = 2 * atan(pow(M_E, lon)) - M_PI * 0.5;
 
-    // mercator to uv
+    // equirectangular to uv
     x = remap(x, 0, 2 * M_PI, 0, 1);
-    y = remap(y, -M_PI, M_PI, 0, 1);
+    y = remap(y, -M_PI * 0.5, M_PI * 0.5, 0, 1);
 
     // clamp
-    x = clamp(x, 0, 1);
-    y = clamp(y, 0, 1);
+    // x = clamp(x, 0, 1);
+    // y = clamp(y, 0, 1);
 
     return vec2(x, y);
 }
 
 void main()
 {
-    vec2 uv = equi_to_merc(fragCoord.x, fragCoord.y);
+    vec2 uv = merc_to_equi(fragCoord.x, fragCoord.y);
     fragColor = texture2D(texture, uv);
 }

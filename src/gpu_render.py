@@ -1,55 +1,54 @@
 import moderngl
 import numpy as np
 from PIL import Image
+from .enums import FORMAT, SAMPLING
 
 def load_glsl(file_path):
     with open(file_path, 'r') as file:
         return file.read()
 
-def render(image: Image.Image):
-    # Create a moderngl context
-    ctx = moderngl.create_standalone_context()
-
-    # Resize image
-    input_image = input_image.resize((input_image.width, input_image.height * 2), Image.Resampling.NEAREST)
-
+def render(image: Image.Image, format: FORMAT, sampling: SAMPLING):
+    # Shaders
     vertex_shader = load_glsl("./src/shaders/vertex.glsl")
+    if format == FORMAT.TO_EQUIRECTANGULAR:
+        fragmentShader = load_glsl("./src/shaders/fragment_to_equirectangular.glsl")
+    else:
+        fragmentShader = load_glsl("./src/shaders/fragment_to_mercator.glsl")
 
-    # Create a shader program
-    prog = ctx.program(vertex_shader=vertex_shader, fragment_shader=shaders.to_equi_fragment_shader)
-
-    # Create a fullscreen quad
+    # Setup
+    ctx = moderngl.create_standalone_context()
+    prog = ctx.program(vertex_shader=vertex_shader, fragment_shader=fragmentShader)
     quad = np.array([-1, -1, 1, -1, -1, 1, 1, 1], dtype='f4')
     vbo = ctx.buffer(quad)
     vao = ctx.simple_vertex_array(prog, vbo, 'in_vert')
 
-    # Create a texture from the input image
-    width, height = input_image.size
-    mode = input_image.mode
-    channels = len(mode)
-    texture = ctx.texture((width, height), channels, input_image.tobytes())
+    # Texture
+    if format == FORMAT.TO_EQUIRECTANGULAR:
+        newImage = Image.new(image.mode, (2 * image.width, image.height))
+    else:
+        newImage = Image.new(image.mode, (image.width, 2 * image.height))
+
+    # width, height = image.size
+    texture = ctx.texture((image.width, image.height), len(image.mode), image.tobytes())
     texture.use()
+    prog['texture'].value = 0
 
-    # Set the texture uniform in the shader
-    prog['texture'].value = 0  # 0 corresponds to the texture unit
+    # Sampler
+    sampler = ctx.sampler(repeat_x=False, repeat_y=False)
+    if sampling == SAMPLING.LINEAR:
+        sampler.filter = (moderngl.LINEAR, moderngl.LINEAR)
+    else:
+        sampler.filter = (moderngl.NEAREST, moderngl.NEAREST)
+    sampler.use()
 
-    # Create a framebuffer
-    fbo = ctx.framebuffer(color_attachments=[ctx.texture((width, height), 4)])
-
-    # Use the framebuffer
+    # Framebuffer
+    fbo = ctx.framebuffer(color_attachments=[ctx.texture((newImage.width, newImage.height), 4)])
     fbo.use()
-
-    # Clear the framebuffer
     ctx.clear()
 
-    # Draw the fullscreen quad with the input image texture
+    # Render
     vao.render(moderngl.TRIANGLE_STRIP)
-
-    # Read the pixel data from the framebuffer
-    pixels = fbo.read(components=channels, alignment=1)
-
-    # Close the context
+    pixels = fbo.read(components=len(newImage.mode), alignment=1)
     ctx.release()
 
-    # Save the result as a PNG file
-    return Image.frombytes(mode, (width, height), pixels)
+    return Image.frombytes(image.mode, (newImage.width, newImage.height), pixels)

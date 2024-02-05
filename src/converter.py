@@ -1,29 +1,30 @@
-import sys
+import os
 from PIL import Image
 from pathlib import Path
-import math
-import enums
-
-import cpu_render
-import gpu_render
+from .enums import FORMAT, RENDER_MODE, SAMPLING
+from . import cpu_render, gpu_render
 
 class Converter:
-    def convert(input: str, output: str, format: enums.FORMAT, mode: enums.RENDER_MODE = enums.RENDER_MODE.GPU):
+    def convert(input: str, output: str, format: FORMAT, mode: RENDER_MODE = RENDER_MODE.GPU, sampling: SAMPLING = SAMPLING.LINEAR):
         try:
             file = Path(input)
 
-            if format == enums.FORMAT.TO_EQUIRECTANGULAR:
+            if format == FORMAT.TO_EQUIRECTANGULAR:
                 print(f"\nConverting \"{file.name}\" to equirectangular.")
             else:
                 print(f"\nConverting \"{file.name}\" to mercator.")
 
             image = Image.open(file)
             
-            if mode == enums.RENDER_MODE.CPU:
-                newImage: Image.Image = cpu_render.render(image, format)
+            if mode == RENDER_MODE.GPU:
+                newImage: Image.Image = gpu_render.render(image, format, sampling)
             else:
-                newImage: Image.Image = gpu_render.render(image, format)
+                newImage: Image.Image = cpu_render.render(image, format)
             
+            directory = os.path.dirname(output)
+            if not os.path.exists(directory):
+                os.makedirs(directory)
+
             newImage.save(output)
             print(f"\033[32mSuccess!\033[0m")
 

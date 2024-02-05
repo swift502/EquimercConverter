@@ -1,6 +1,6 @@
 from PIL import Image
 import math
-from enums import FORMAT
+from .enums import FORMAT
 
 MERC_MAX_LON = 2 * math.atan(math.pow(math.e, math.pi)) - math.pi * 0.5
 
@@ -37,7 +37,7 @@ def merc_to_equi(u, v):
 
     # mercator to equirectangular
     x = lat
-    y = math.atan(math.pow(math.e, lon)) * 2 - math.pi / 2
+    y = 2 * math.atan(math.pow(math.e, lon)) - math.pi * 0.5
 
     # equirectangular to uv
     x = remap(x, 0, 2 * math.pi, 0, 1)
@@ -49,11 +49,11 @@ def merc_to_equi(u, v):
 
     return (x, y)
 
-def render(image: Image, format: FORMAT):
+def render(image: Image.Image, format: FORMAT):
     if format == FORMAT.TO_EQUIRECTANGULAR:
-        newImage = Image.new(image.mode, (image.width * 2, image.height))
+        newImage = Image.new(image.mode, (2 * image.width, image.height))
     else:
-        newImage = Image.new(image.mode, (image.width, image.height * 2))
+        newImage = Image.new(image.mode, (image.width, 2 * image.height))
 
     pixels = image.load()
     newPixels = newImage.load()
@@ -75,6 +75,8 @@ def render(image: Image, format: FORMAT):
         progress += 1
         if progress % 20 == 0 or progress == total:
             progressBar(progress, total)
+    
+    return newImage
 
 def progressBar(iteration, total, length = 50):
     # Progress bar
