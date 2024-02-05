@@ -1,4 +1,4 @@
-![](data/preview.png)
+![](img/preview.png)
 
 # Equirectangular-Mercator Projection Converter
 
@@ -22,27 +22,37 @@ Features a fast GPU and a slower CPU conversion implementations:
 
 ### CLI
 
-Usage: `python convert.py input output {m,e} [--nearest] [--cpu]`
+Usage:
+```shell
+python convert.py input output {m,e} [--nearest] [--cpu]
+```
 
 Examples:
 
-- `python convert.py equi.png merc.png m` Converts equi.png (equirectangular) to merc.png (mercator)
-- `python convert.py merc.png equi.png e` Converts merc.png (mercator) to equi.png (equirectangular)
+```shell
+python convert.py equi.png merc.png m # Converts equi.png to a mercator projection
+```
 
-- `python convert.py equi.png merc.png m --nearest` Will enforce nearest texture sampling when upscaling the original image
-- `python convert.py equi.png merc.png m --cpu` Will render using CPU (can be very extremely slow for large images)
+Converts equi.png (equirectangular) to merc.png (mercator)
 
-| Positional arguments | |
+```shell
+python convert.py equi.png merc.png m
+```
+
+Converts equi.png (equirectangular) to merc.png (mercator)
+
+```shell
+python convert.py equi.png merc.png m
+```
+
+| Args | |
 | --- | --- |
-| input | the input file path |
-| output | the output file path |
-| {m,e} | projection to convert the image to: "m" for mercator, "e" for equirectangular |
-
-| Options | |
-| --- | --- |
-| -h, --help | show this help message and exit |
-| --nearest | force nearest sampling for the stretching that will occur due to change of aspect ratio |
-| --cpu | convert using CPU, much slower and doesn't support linear sampling |
+| input | The input file path |
+| output | The output file path |
+| {m,e} | Projection to convert the image to: "m" for mercator, "e" for equirectangular. |
+| -h, --help | Show help |
+| --nearest | Use nearest sampling for the stretching that will occur due to change of aspect ratio. Only used for GPU rendering. |
+| --cpu | Use CPU for rendering. Much slower and doesn't support linear sampling. |
 
 ### Python
 
