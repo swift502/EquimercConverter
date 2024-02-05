@@ -1,1 +1,3 @@
 Pillow
+moderngl
+numpy
