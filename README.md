@@ -2,7 +2,7 @@
 
 # Equirectangular-Mercator Projection Converter
 
-Bi-directional image projection converter. Converts images between equirectangular and mercator projections. Expands the image to new aspect ratio and fills in missing pixels using nearest sampling.
+Bi-directional image projection converter. Converts images between equirectangular and mercator projections.
 
 Features a fast GPU and a slower CPU conversion implementations:
 
