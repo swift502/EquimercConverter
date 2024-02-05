@@ -48,4 +48,4 @@ def render(image: Image.Image, conversion: CONVERSION, sampling: SAMPLING):
     pixels = fbo.read(components=len(newImage.mode), alignment=1)
     ctx.release()
 
-    return Image.frombytes(image.mode, (newImage.width, newImage.height), pixels)
+    return Image.frombytes(newImage.mode, (newImage.width, newImage.height), pixels)
