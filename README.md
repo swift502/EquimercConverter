@@ -22,30 +22,26 @@ Features a fast GPU and a slower CPU conversion implementations:
 
 ### CLI
 
-Usage:
+#### Usage:
 ```shell
 python convert.py input output {m,e} [--nearest] [--cpu]
 ```
 
-Examples:
+#### Examples:
 
-```shell
-python convert.py equi.png merc.png m # Converts equi.png to a mercator projection
-```
-
-Converts equi.png (equirectangular) to merc.png (mercator)
+Convert equi.png (equirectangular) to merc.png (mercator)
 
 ```shell
 python convert.py equi.png merc.png m
 ```
 
-Converts equi.png (equirectangular) to merc.png (mercator)
+Convert equi.png (equirectangular) to merc.png (mercator)
 
 ```shell
 python convert.py equi.png merc.png m
 ```
 
-| Args | |
+| Arguments | Description |
 | --- | --- |
 | input | The input file path |
 | output | The output file path |
