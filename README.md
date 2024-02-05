@@ -42,7 +42,7 @@ python convert.py equi.png merc.png m
 ```
 
 | Arguments | Description |
-| --- | --- |
+| --: | :-- |
 | input | The input file path |
 | output | The output file path |
 | {m,e} | Projection to convert the image to: "m" for mercator, "e" for equirectangular. |
