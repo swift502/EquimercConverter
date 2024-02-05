@@ -103,11 +103,12 @@ class Converter:
             print(e)
     
     def progressBar(iteration, total, length = 50):
-        # Call in a loop to create terminal progress bar
-        percent = ("{0:.1f}").format(100 * (iteration / float(total)))
-        filledLength = int(length * iteration // total)
+        # Progress bar
+        progress = iteration / total
+        percent = "{0:.1f}".format(100 * progress)
+        filledLength = int(length * progress)
         bar = '█' * filledLength + ' ' * (length - filledLength)
-        print(f'\rProgress:  {bar} {percent}%', end = "")
+        print(f'\rProgress: {bar} {percent}%', end = "")
 
         # Print New Line on Complete
         if iteration == total: 
