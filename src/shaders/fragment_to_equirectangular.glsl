@@ -25,10 +25,6 @@ vec2 equi_to_merc(float u, float v)
     x = remap(x, 0, 2 * M_PI, 0, 1);
     y = remap(y, -M_PI, M_PI, 0, 1);
 
-    // clamp
-    // x = clamp(x, 0, 1);
-    // y = clamp(y, 0, 1);
-
     return vec2(x, y);
 }
 
