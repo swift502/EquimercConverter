@@ -23,15 +23,8 @@ def render(image: Image.Image, conversion: CONVERSION, sampling: SAMPLING):
     vao = ctx.simple_vertex_array(prog, vbo, 'in_vert')
 
     # Texture
-    if conversion == CONVERSION.TO_MERCATOR:
-        newImage = Image.new(image.mode, (image.width, 2 * image.height))
-    else:
-        newImage = Image.new(image.mode, (2 * image.width, image.height))
-
-    # width, height = image.size
     texture = ctx.texture((image.width, image.height), len(image.mode), image.tobytes())
     texture.use()
-    prog['texture'].value = 0
 
     # Sampler
     sampler = ctx.sampler(repeat_x=False, repeat_y=False)
@@ -42,6 +35,10 @@ def render(image: Image.Image, conversion: CONVERSION, sampling: SAMPLING):
     sampler.use()
 
     # Framebuffer
+    if conversion == CONVERSION.TO_MERCATOR:
+        newImage = Image.new(image.mode, (image.width, 2 * image.height))
+    else:
+        newImage = Image.new(image.mode, (2 * image.width, image.height))
     fbo = ctx.framebuffer(color_attachments=[ctx.texture((newImage.width, newImage.height), 4)])
     fbo.use()
     ctx.clear()
