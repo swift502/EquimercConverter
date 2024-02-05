@@ -1,17 +1,22 @@
 import moderngl
 import numpy as np
 from PIL import Image
-import shaders
 
-def render():
+def load_glsl(file_path):
+    with open(file_path, 'r') as file:
+        return file.read()
+
+def render(image: Image.Image):
     # Create a moderngl context
     ctx = moderngl.create_standalone_context()
 
     # Resize image
     input_image = input_image.resize((input_image.width, input_image.height * 2), Image.Resampling.NEAREST)
 
+    vertex_shader = load_glsl("./src/shaders/vertex.glsl")
+
     # Create a shader program
-    prog = ctx.program(vertex_shader=shaders.vertex_shader, fragment_shader=shaders.to_equi_fragment_shader)
+    prog = ctx.program(vertex_shader=vertex_shader, fragment_shader=shaders.to_equi_fragment_shader)
 
     # Create a fullscreen quad
     quad = np.array([-1, -1, 1, -1, -1, 1, 1, 1], dtype='f4')

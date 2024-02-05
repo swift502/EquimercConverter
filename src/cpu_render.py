@@ -1,7 +1,6 @@
 from PIL import Image
-from pathlib import Path
 import math
-from enum import Enum
+from enums import FORMAT
 
 MERC_MAX_LON = 2 * math.atan(math.pow(math.e, math.pi)) - math.pi * 0.5
 
@@ -50,8 +49,8 @@ def merc_to_equi(u, v):
 
     return (x, y)
 
-def render(image: Image):
-    if mode == MODE.TO_EQUIRECTANGULAR:
+def render(image: Image, format: FORMAT):
+    if format == FORMAT.TO_EQUIRECTANGULAR:
         newImage = Image.new(image.mode, (image.width * 2, image.height))
     else:
         newImage = Image.new(image.mode, (image.width, image.height * 2))
@@ -63,7 +62,7 @@ def render(image: Image):
     progress = 0
     for x in range(newImage.width):
         for y in range(newImage.height):
-            if mode == MODE.TO_EQUIRECTANGULAR:
+            if format == FORMAT.TO_EQUIRECTANGULAR:
                 # Running through an equi image, we need to sample merc
                 (u, v) = equi_to_merc(x / newImage.width, y / newImage.height)
             else:
