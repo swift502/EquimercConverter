@@ -1,19 +1,19 @@
 import moderngl
 import numpy as np
 from PIL import Image
-from .enums import FORMAT, SAMPLING
+from .enums import CONVERSION, SAMPLING
 
 def load_glsl(file_path):
     with open(file_path, 'r') as file:
         return file.read()
 
-def render(image: Image.Image, format: FORMAT, sampling: SAMPLING):
+def render(image: Image.Image, conversion: CONVERSION, sampling: SAMPLING):
     # Shaders
     vertex_shader = load_glsl("./src/shaders/vertex.glsl")
-    if format == FORMAT.TO_EQUIRECTANGULAR:
-        fragmentShader = load_glsl("./src/shaders/fragment_to_equirectangular.glsl")
-    else:
+    if conversion == CONVERSION.TO_MERCATOR:
         fragmentShader = load_glsl("./src/shaders/fragment_to_mercator.glsl")
+    else:
+        fragmentShader = load_glsl("./src/shaders/fragment_to_equirectangular.glsl")
 
     # Setup
     ctx = moderngl.create_standalone_context()
@@ -23,10 +23,10 @@ def render(image: Image.Image, format: FORMAT, sampling: SAMPLING):
     vao = ctx.simple_vertex_array(prog, vbo, 'in_vert')
 
     # Texture
-    if format == FORMAT.TO_EQUIRECTANGULAR:
-        newImage = Image.new(image.mode, (2 * image.width, image.height))
-    else:
+    if conversion == CONVERSION.TO_MERCATOR:
         newImage = Image.new(image.mode, (image.width, 2 * image.height))
+    else:
+        newImage = Image.new(image.mode, (2 * image.width, image.height))
 
     # width, height = image.size
     texture = ctx.texture((image.width, image.height), len(image.mode), image.tobytes())

@@ -1,16 +1,28 @@
 import argparse
-from src.enums import FORMAT, RENDER_MODE, SAMPLING
+from src.enums import CONVERSION, DEVICE, SAMPLING
 from src.converter import Converter
 
 def main():
-    parser = argparse.ArgumentParser(description="Copy content from one file to another.")
-    parser.add_argument('input', help="Path to the input file")
-    parser.add_argument('output', help="Path to the output file")
-    parser.add_argument('--verbose', action='store_true', help="Enable verbose mode")
-    # parser.add_argument('--color', choices=[Color.RED, Color.BLUE], help="Specify the color (red or blue)")
+    parser = argparse.ArgumentParser(description="Converts an image from one projection to another.")
+    parser.add_argument('input', help="the input file path")
+    parser.add_argument('output', help="the output file path")
+    parser.add_argument('conversion', choices=["m", "e"], help="projection to convert the image to: \"m\" for mercator, \"e\" for equirectangular")
+    parser.add_argument('--nearest', action='store_true', help="force nearest sampling for the stretching that will occur due to change of aspect ratio")
+    parser.add_argument('--cpu', action='store_true', help="convert using CPU, much slower and doesn't support linear sampling")
 
     args = parser.parse_args()
 
+    if args.conversion == "m":
+        conversion = CONVERSION.TO_MERCATOR
+    if args.conversion == "e":
+        conversion = CONVERSION.TO_EQUIRECTANGULAR
+
+    Converter.convert(
+        input=args.input,
+        output=args.output,
+        conversion=conversion,
+        sampling=SAMPLING.NEAREST if args.nearest else SAMPLING.LINEAR,
+        device=DEVICE.CPU if args.cpu else DEVICE.GPU)
 
 if __name__ == "__main__":
     main()

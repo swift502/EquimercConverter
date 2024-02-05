@@ -1,6 +1,6 @@
 from PIL import Image
 import math
-from .enums import FORMAT
+from .enums import CONVERSION
 
 MERC_MAX_LON = 2 * math.atan(math.pow(math.e, math.pi)) - math.pi * 0.5
 
@@ -49,11 +49,11 @@ def merc_to_equi(u, v):
 
     return (x, y)
 
-def render(image: Image.Image, format: FORMAT):
-    if format == FORMAT.TO_EQUIRECTANGULAR:
-        newImage = Image.new(image.mode, (2 * image.width, image.height))
-    else:
+def render(image: Image.Image, conversion: CONVERSION):
+    if conversion == CONVERSION.TO_MERCATOR:
         newImage = Image.new(image.mode, (image.width, 2 * image.height))
+    else:
+        newImage = Image.new(image.mode, (2 * image.width, image.height))
 
     pixels = image.load()
     newPixels = newImage.load()
@@ -62,12 +62,12 @@ def render(image: Image.Image, format: FORMAT):
     progress = 0
     for x in range(newImage.width):
         for y in range(newImage.height):
-            if format == FORMAT.TO_EQUIRECTANGULAR:
-                # Running through an equi image, we need to sample merc
-                (u, v) = equi_to_merc(x / newImage.width, y / newImage.height)
-            else:
+            if conversion == CONVERSION.TO_MERCATOR:
                 # Running through a merc image, we need to sample equi
                 (u, v) = merc_to_equi(x / newImage.width, y / newImage.height)
+            else:
+                # Running through an equi image, we need to sample merc
+                (u, v) = equi_to_merc(x / newImage.width, y / newImage.height)
             sampleX = round(u * (image.width - 1))
             sampleY = round(v * (image.height - 1))
             newPixels[x, y] = pixels[sampleX, sampleY]

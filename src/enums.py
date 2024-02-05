@@ -1,12 +1,12 @@
 from enum import Enum
 
-class FORMAT(Enum):
-    TO_EQUIRECTANGULAR = 1
-    TO_MERCATOR = 2
+class CONVERSION(Enum):
+    TO_MERCATOR = 1
+    TO_EQUIRECTANGULAR = 2
 
-class RENDER_MODE(Enum):
-    CPU = 1
-    GPU = 2
+class DEVICE(Enum):
+    GPU = 1
+    CPU = 2
 
 class SAMPLING(Enum):
     LINEAR = 1
