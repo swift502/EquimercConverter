@@ -36,11 +36,11 @@ Converter.convert(
     input="./img/equi.png",
     output="./output/equi_to_merc_CPU.png",
     conversion=CONVERSION.TO_MERCATOR,
-    mode=DEVICE.CPU)
+    device=DEVICE.CPU)
 
 # Convert to equirectangular
 Converter.convert(
     input="./img/merc.jpg",
     output="./output/merc_to_equi_CPU.jpg",
     conversion=CONVERSION.TO_EQUIRECTANGULAR,
-    mode=DEVICE.CPU)
+    device=DEVICE.CPU)
