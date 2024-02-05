@@ -1,5 +1,9 @@
 from enum import Enum
 
-class MODE(Enum):
+class FORMAT(Enum):
     TO_EQUIRECTANGULAR = 1
     TO_MERCATOR = 2
+
+class RENDER_MODE(Enum):
+    CPU = 1
+    GPU = 2

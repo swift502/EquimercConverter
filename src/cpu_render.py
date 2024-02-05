@@ -50,7 +50,7 @@ def merc_to_equi(u, v):
 
     return (x, y)
 
-def render(image: Image, ):
+def render(image: Image):
     if mode == MODE.TO_EQUIRECTANGULAR:
         newImage = Image.new(image.mode, (image.width * 2, image.height))
     else:
