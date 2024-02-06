@@ -22,12 +22,13 @@ class Converter:
             else:
                 newImage: Image.Image = cpu_render.render(image, conversion)
             
-            directory = os.path.dirname(output)
+            outFile = Path(output)
+            directory = os.path.dirname(outFile)
             if len(directory) > 0 and not os.path.exists(directory):
                 os.makedirs(directory)
 
-            print(f"Saving {output}")
-            newImage.save(output)
+            print(f"Saving {outFile.absolute()}")
+            newImage.save(outFile)
             print(f"\033[32mSuccess!\033[0m")
 
         except Exception as e:
