@@ -44,7 +44,6 @@ python convert.py merc.png equi.png e
 | {m,e} | Projection to convert the image to: "m" for mercator, "e" for equirectangular. |
 | --nearest | Use nearest sampling for stretching that will occur due to change of aspect ratio. Only used by GPU rendering. |
 | --cpu | Use the CPU rendering implementation. Much slower and doesn't support linear sampling. |
-| -h, --help | Show help. |
 
 ### Python
 
