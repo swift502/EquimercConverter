@@ -3,7 +3,7 @@ from src.enums import CONVERSION, DEVICE, SAMPLING
 from src.converter import Converter
 
 def main():
-    parser = argparse.ArgumentParser(description="Converts an image from one projection to another.")
+    parser = argparse.ArgumentParser()
     parser.add_argument('input', help="the input file path")
     parser.add_argument('output', help="the output file path")
     parser.add_argument('conversion', choices=["m", "e"], help="projection to convert the image to: \"m\" for mercator, \"e\" for equirectangular")
