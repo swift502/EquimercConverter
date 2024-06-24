@@ -39,11 +39,11 @@ python convert.py merc.png --to_equirectangular
 
 | Argument | Description |
 | --: | :-- |
-| `input` | The input file path. |
-| `--to_mercator` | Convert the image to the Mercator projection. |
-| `--to_equirectangular` | Convert the image to the Equirectangular projection. |
-| `--nearest` | Use nearest sampling for stretching that will occur due to change of aspect ratio. Only used by GPU rendering. |
-| `--cpu` | Use the CPU rendering implementation. Much slower and doesn't support linear sampling. |
+| input | The input file path. |
+| &#45;&#45;to_mercator | Convert the image to the Mercator projection. |
+| &#45;&#45;to_equirectangular | Convert the image to the Equirectangular projection. |
+| &#45;&#45;nearest | Use nearest sampling for stretching that will occur due to change of aspect ratio. Only used by GPU rendering. |
+| &#45;&#45;cpu | Use the CPU rendering implementation. Much slower and doesn't support linear sampling. |
 
 ### Python
 
