@@ -35,7 +35,7 @@ def main():
             device=DEVICE.CPU if args.cpu else DEVICE.GPU)
 
     if not args.to_mercator and not args.to_equirectangular:
-        print("\033[31mError:\033[0m No conversion specified, use the --to_mercator or --to_equirectangular arguments to specify the conversion type.\n")
+        print("\033[31mError:\033[0m No conversion specified, use the --to_mercator or --to_equirectangular arguments to specify a conversion.\n")
 
 if __name__ == "__main__":
     main()
