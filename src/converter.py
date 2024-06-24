@@ -16,6 +16,11 @@ class Converter:
 
             Image.MAX_IMAGE_PIXELS = None
             image = Image.open(file)
+
+            # Convert to RGB if the image is in palette mode
+            if image.mode == 'P':
+                print("Warning: Image is using indexed color mode, which is not supported. Converting to RGB.")
+                image = image.convert("RGB")
             
             if device == DEVICE.GPU:
                 newImage: Image.Image = gpu_render.render(image, conversion, sampling)
