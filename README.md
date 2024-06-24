@@ -24,7 +24,7 @@ This project therefore contains working examples of Python and GLSL conversion c
 ### CLI
 
 ```shell
-python convert.py input output [--to_mercator] [--to_equirectangular] [--nearest] [--cpu]
+python convert.py input [--to_mercator] [--to_equirectangular] [--nearest] [--cpu]
 ```
 
 Examples:
