@@ -24,24 +24,24 @@ This project therefore contains working examples of Python and GLSL conversion c
 ### CLI
 
 ```shell
-python convert.py input output {m,e} [--nearest] [--cpu]
+python convert.py input output [--to_mercator] [--to_equirectangular] [--nearest] [--cpu]
 ```
 
 Examples:
 
 ```shell
-# Convert equi.png (equirectangular) to merc.png (mercator)
-python convert.py equi.png merc.png m
+# Convert equi.png (equirectangular) to the mercator projection
+python convert.py equi.png --to_mercator
 
-# Convert merc.png (mercator) to equi.png (equirectangular)
-python convert.py merc.png equi.png e
+# Convert merc.png (mercator) to the equirectangular projection
+python convert.py merc.png --to_equirectangular
 ```
 
 | Argument | Description |
 | --: | :-- |
 | input | The input file path. |
-| output | The output file path. |
-| {m,e} | Projection to convert the image to: "m" for mercator, "e" for equirectangular. |
+| --to_mercator | Convert the image to the Mercator projection. |
+| --to_equirectangular | Convert the image to the Equirectangular projection. |
 | --nearest | Use nearest sampling for stretching that will occur due to change of aspect ratio. Only used by GPU rendering. |
 | --cpu | Use the CPU rendering implementation. Much slower and doesn't support linear sampling. |
 

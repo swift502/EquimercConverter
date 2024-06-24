@@ -10,9 +10,9 @@ class Converter:
             file = Path(input)
 
             if conversion == CONVERSION.TO_MERCATOR:
-                print(f"\nConverting \"{file.name}\" to mercator.")
+                print(f"Converting \"{file.name}\" to mercator.")
             else:
-                print(f"\nConverting \"{file.name}\" to equirectangular.")
+                print(f"Converting \"{file.name}\" to equirectangular.")
 
             Image.MAX_IMAGE_PIXELS = None
             image = Image.open(file)
@@ -34,8 +34,8 @@ class Converter:
 
             print(f"Saving {outFile.absolute()}")
             newImage.save(outFile)
-            print(f"\033[32mSuccess!\033[0m")
+            print(f"\033[32mSuccess!\033[0m\n")
 
         except Exception as e:
-            print(f"\033[31mError:\033[0m {e}")
+            print(f"\033[31mError:\033[0m {e}\n")
     
