@@ -15,9 +15,9 @@ This project therefore contains working examples of Python and GLSL conversion c
 
 1. Install [Python 3.11+](https://www.python.org/downloads/)
 1. Install requirements
-    ```
-    pip install -r requirements.txt
-    ```
+```
+pip install -r requirements.txt
+```
 
 ## Usage
 
