@@ -30,7 +30,7 @@ python convert.py input [--to_equirectangular] [--to_mercator] [--nearest] [--cp
 | input | The input file path. |
 | --: | :-- |
 | &#8209;&#8209;to_equirectangular | Convert the image to the Equirectangular projection. |
-| &#8209;&#8209;to_mercator | Convert the image to the Mercator projection. |
+| --to_mercator | Convert the image to the Mercator projection. |
 | --nearest | Use nearest sampling for stretching that will occur due to change of aspect ratio. Only used by GPU rendering. |
 | --cpu | Use the CPU rendering implementation. Much slower and doesn't support linear sampling. |
 
