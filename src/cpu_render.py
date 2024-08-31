@@ -35,23 +35,25 @@ def merc_to_equi(u, v):
     return (u, y)
 
 def render(image: Image.Image, conversion: CONVERSION):
+    # Create new image
     if conversion == CONVERSION.TO_MERCATOR:
         newImage = Image.new(image.mode, (image.width, 2 * image.height))
     else:
         newImage = Image.new(image.mode, (2 * image.width, image.height))
 
+    # Load
     pixels = image.load()
     newPixels = newImage.load()
 
-    total = newImage.width
+    # Image bounds
+    maxX = newImage.width - 1
+    maxY = newImage.height - 1
+
     progress = 0
+    total = newImage.width
     for x in range(newImage.width):
         for y in range(newImage.height):
-            # Coordinate limits
-            maxX = newImage.width - 1
-            maxY = newImage.height - 1
-
-            # Conversion
+            # UV conversion
             if conversion == CONVERSION.TO_MERCATOR:
                 # Writing into a blank merc image, we need to sample equi
                 (u, v) = merc_to_equi(x / maxX, y / maxY)
