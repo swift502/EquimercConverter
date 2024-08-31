@@ -48,10 +48,6 @@ python convert.py equi.png --to_mercator
 
 You can use the Converter class directly in Python. Check out the [demo script](demo.py) to see how to run conversions from code.
 
-## Limitations
-
-The conversion process doesn't handle longitude angles of 85+ degress well. Converted images may display issues around the top and bottom borders.
-
 ## Python package
 
 If anyone wants to transform this into a functional, publishable package, feel free to fork the project and publish it. I don't have enough experience doing that and can't imagine many people will use this thing to make the extra effort worthwhile.

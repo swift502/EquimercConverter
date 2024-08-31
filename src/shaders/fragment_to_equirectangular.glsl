@@ -3,8 +3,9 @@ in vec2 fragCoord;
 out vec4 fragColor;
 uniform sampler2D texture;
 
-#define M_PI 3.1415926535897932384626433832795
-#define M_E 2.7182818284590452353602874713527
+#define M_PI 3.1415926535897932
+#define M_E 2.7182818284590452
+#define M_MAX 1.4844222297453324
 
 float remap(float value, float oldMin, float oldMax, float newMin, float newMax)
 {
@@ -14,18 +15,15 @@ float remap(float value, float oldMin, float oldMax, float newMin, float newMax)
 vec2 equi_to_merc(float u, float v)
 {
     // uv to equirectangular
-    float lat = remap(u, 0, 1, 0, 2 * M_PI);
-    float lon = remap(v, 0, 1, -M_PI * 0.5, M_PI * 0.5);
+    float lon = remap(v, 0, 1, -M_MAX, M_MAX);
 
     // equirectangular to mercator
-    float x = lat;
     float y = log(tan(M_PI / 4 + lon / 2));
 
     // mercator to uv
-    x = remap(x, 0, 2 * M_PI, 0, 1);
     y = remap(y, -M_PI, M_PI, 0, 1);
 
-    return vec2(x, y);
+    return vec2(u, y);
 }
 
 void main()
