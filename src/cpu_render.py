@@ -53,10 +53,10 @@ def render(image: Image.Image, conversion: CONVERSION):
 
             # Conversion
             if conversion == CONVERSION.TO_MERCATOR:
-                # Running through a merc image, we need to sample equi
+                # Writing into a blank merc image, we need to sample equi
                 (u, v) = merc_to_equi(x / maxX, y / maxY)
             else:
-                # Running through an equi image, we need to sample merc
+                # Writing into a blank equi image, we need to sample merc
                 (u, v) = equi_to_merc(x / maxX, y / maxY)
 
             # Resample original image using converted UVs
