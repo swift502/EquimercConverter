@@ -1,11 +1,12 @@
 #version 330
+
 in vec2 fragCoord;
 out vec4 fragColor;
-uniform sampler2D texture;
+uniform sampler2D textureSampler;
 
-#define M_PI 3.1415926535897932
-#define M_E 2.7182818284590452
-#define M_MAX 1.4844222297453324
+const float M_PI = 3.1415926535897932;
+const float M_E = 2.7182818284590452;
+const float MERC_MAX = 1.4844222297453324;
 
 float remap(float value, float oldMin, float oldMax, float newMin, float newMax)
 {
@@ -21,7 +22,7 @@ vec2 merc_to_equi(float u, float v)
     float y = 2 * atan(pow(M_E, lon)) - M_PI * 0.5;
 
     // equirectangular to uv
-    y = remap(y, -M_MAX, M_MAX, 0, 1);
+    y = remap(y, -MERC_MAX, MERC_MAX, 0, 1);
 
     return vec2(u, y);
 }
@@ -29,5 +30,5 @@ vec2 merc_to_equi(float u, float v)
 void main()
 {
     vec2 uv = merc_to_equi(fragCoord.x, fragCoord.y);
-    fragColor = texture2D(texture, uv);
+    fragColor = texture(textureSampler, uv);
 }
