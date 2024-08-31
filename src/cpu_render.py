@@ -2,7 +2,7 @@ from PIL import Image
 import math
 from .enums import CONVERSION
 
-MERC_MAX_LON = 2 * math.atan(math.pow(math.e, math.pi)) - math.pi * 0.5
+EQUI_LON = 2 * math.atan(math.pow(math.e, math.pi)) - math.pi * 0.5
 
 def remap(value, oldMin, oldMax, newMin, newMax):
     return ((value - oldMin) / (oldMax - oldMin)) * (newMax - newMin) + newMin
@@ -12,7 +12,7 @@ def clamp(value, minValue, maxValue):
 
 def equi_to_merc(u, v):
     # uv to equirectangular
-    lon = remap(v, 0, 1, -MERC_MAX_LON, MERC_MAX_LON)
+    lon = remap(v, 0, 1, -EQUI_LON, EQUI_LON)
 
     # equirectangular to mercator
     y = math.log(math.tan(math.pi / 4 + lon / 2))
@@ -30,7 +30,7 @@ def merc_to_equi(u, v):
     y = 2 * math.atan(math.pow(math.e, lon)) - math.pi * 0.5
 
     # equirectangular to uv
-    y = remap(y, -MERC_MAX_LON, MERC_MAX_LON, 0, 1)
+    y = remap(y, -EQUI_LON, EQUI_LON, 0, 1)
 
     return (u, y)
 

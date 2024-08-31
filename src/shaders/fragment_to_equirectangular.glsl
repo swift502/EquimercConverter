@@ -6,7 +6,7 @@ uniform sampler2D textureSampler;
 
 const float M_PI = 3.1415926535897932;
 const float M_E = 2.7182818284590452;
-const float MERC_MAX = 1.4844222297453324;
+const float EQUI_LON = 1.4844222297453324;
 
 float remap(float value, float oldMin, float oldMax, float newMin, float newMax)
 {
@@ -16,7 +16,7 @@ float remap(float value, float oldMin, float oldMax, float newMin, float newMax)
 vec2 equi_to_merc(float u, float v)
 {
     // uv to equirectangular
-    float lon = remap(v, 0, 1, -MERC_MAX, MERC_MAX);
+    float lon = remap(v, 0, 1, -EQUI_LON, EQUI_LON);
 
     // equirectangular to mercator
     float y = log(tan(M_PI / 4 + lon / 2));
