@@ -7,9 +7,6 @@ EQUI_LON = 2 * math.atan(math.pow(math.e, math.pi)) - math.pi * 0.5
 def remap(value, oldMin, oldMax, newMin, newMax):
     return ((value - oldMin) / (oldMax - oldMin)) * (newMax - newMin) + newMin
 
-def clamp(value, minValue, maxValue):
-    return min(max(value, minValue), maxValue)
-
 def equi_to_merc(u, v):
     # uv to equirectangular
     lon = remap(v, 0, 1, -EQUI_LON, EQUI_LON)
