@@ -1,5 +1,5 @@
 import moderngl
-import numpy as np
+import numpy
 from PIL import Image
 from .enums import CONVERSION, SAMPLING
 
@@ -18,7 +18,7 @@ def render(image: Image.Image, conversion: CONVERSION, sampling: SAMPLING):
     # Setup
     ctx = moderngl.create_standalone_context()
     prog = ctx.program(vertex_shader=vertex_shader, fragment_shader=fragmentShader)
-    quad = np.array([-1, -1, 1, -1, -1, 1, 1, 1], dtype='f4')
+    quad = numpy.array([-1, -1, 1, -1, -1, 1, 1, 1], dtype='f4')
     vbo = ctx.buffer(quad)
     vao = ctx.simple_vertex_array(prog, vbo, 'in_vert')
 
