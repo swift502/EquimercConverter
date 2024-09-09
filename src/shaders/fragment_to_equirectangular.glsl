@@ -7,8 +7,7 @@ uniform sampler2D textureSampler;
 const float M_PI = 3.1415926535897932;
 const float M_E = 2.7182818284590452;
 
-// Max longitude in the equirectangular projection
-// 2*atan(e^pi)-pi/2
+// Max longitude in the equirectangular projection (2*atan(e^pi)-pi/2)
 const float EQUI_LON = 1.4844222297453324;
 
 float remap(float value, float oldMin, float oldMax, float newMin, float newMax)
