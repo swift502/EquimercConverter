@@ -2,6 +2,7 @@ from PIL import Image
 import math
 from .enums import CONVERSION
 
+# Max longitude in the equirectangular projection
 EQUI_LON = 2 * math.atan(math.pow(math.e, math.pi)) - math.pi * 0.5
 
 def remap(value, oldMin, oldMax, newMin, newMax):
