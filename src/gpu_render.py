@@ -36,9 +36,9 @@ def render(image: Image.Image, conversion: CONVERSION, sampling: SAMPLING):
 
     # Framebuffer
     if conversion == CONVERSION.TO_MERCATOR:
-        newImage = Image.new(image.mode, (image.width, 2 * image.height))
+        newImage = Image.new(image.mode, (image.width, image.height))
     else:
-        newImage = Image.new(image.mode, (2 * image.width, image.height))
+        newImage = Image.new(image.mode, (image.width, image.height))
     fbo = ctx.framebuffer(color_attachments=[ctx.texture((newImage.width, newImage.height), 4)])
     fbo.use()
     ctx.clear()

@@ -35,9 +35,9 @@ def merc_to_equi(u, v):
 def render(image: Image.Image, conversion: CONVERSION):
     # Create new image
     if conversion == CONVERSION.TO_MERCATOR:
-        newImage = Image.new(image.mode, (image.width, 2 * image.height))
+        newImage = Image.new(image.mode, (image.width, image.height))
     else:
-        newImage = Image.new(image.mode, (2 * image.width, image.height))
+        newImage = Image.new(image.mode, (image.width, image.height))
 
     # Load
     pixels = image.load()
