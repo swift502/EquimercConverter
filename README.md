@@ -6,8 +6,8 @@ Bi-directional image projection converter. Converts images between equirectangul
 
 Features a fast GPU and a slower CPU conversion implementations:
 
-- The GPU version uses [moderngl](https://github.com/moderngl/moderngl) to transform the image using shaders and then saves it using Pillow.
-- The CPU version simply uses [Pillow](https://github.com/python-pillow/Pillow) to modify every pixel individually.
+- The GPU version uses [moderngl](https://github.com/moderngl/moderngl) to transform the image using shaders and then saves it using Pillow
+- The CPU version simply uses [Pillow](https://github.com/python-pillow/Pillow) to modify every pixel individually
 
 This project therefore contains working examples of Python and GLSL conversion code. Feel free to borrow them and translate them to your language/project.
 
