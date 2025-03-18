@@ -25,12 +25,11 @@ pip install -r requirements.txt
 ### CLI
 
 ```shell
-python convert.py input [--to_equirectangular] [--to_mercator] [--nearest] [--cpu]
+python convert.py path/to/input_image [--to_equirectangular] [--to_mercator] [--nearest] [--cpu]
 ```
 
-| Parameters |  |
-| --: | :-- |
-| input | The input file path. |
+| Parameter |  |
+| --- | --- |
 | &#8209;&#8209;to_equirectangular | Convert the image to the Equirectangular projection. |
 | --to_mercator | Convert the image to the Mercator projection. |
 | --nearest | Use nearest sampling for stretching that will occur due to change of aspect ratio. Only used by GPU rendering. |
