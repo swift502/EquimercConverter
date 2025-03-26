@@ -38,10 +38,10 @@ python convert.py path/to/input_image [--to_equirectangular] [--to_mercator] [--
 #### Examples
 
 ```shell
-# Convert merc.png (mercator) to the equirectangular projection
+# Merc to equi
 python convert.py merc.png --to_equirectangular
 
-# Convert equi.png (equirectangular) to the mercator projection
+# Equi to merc
 python convert.py equi.png --to_mercator
 ```
 
