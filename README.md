@@ -52,3 +52,8 @@ You can use the Converter class directly in Python. Check out the [demo script](
 ## Python package
 
 If anyone wants to transform this into a functional, publishable package, feel free to fork the project and publish it. I don't have enough experience doing that and can't imagine many people will use this thing to make the extra effort worthwhile.
+
+## Image sources
+
+- https://en.wikipedia.org/wiki/File:Equirectangular-projection.jpg
+- https://en.wikipedia.org/wiki/File:Mercator-projection.jpg
