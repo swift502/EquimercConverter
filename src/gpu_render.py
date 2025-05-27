@@ -2,18 +2,19 @@ import moderngl
 import numpy
 from PIL import Image
 from .enums import CONVERSION, SAMPLING
+from pathlib import Path
 
-def load_glsl(file_path):
-    with open(file_path, 'r') as file:
-        return file.read()
+def load_shader(shader):
+    path = Path(__file__).resolve().parent / "shaders" / shader
+    return path.read_text()
 
 def render(image: Image.Image, conversion: CONVERSION, sampling: SAMPLING):
     # Shaders
-    vertex_shader = load_glsl("./src/shaders/vertex.glsl")
+    vertex_shader = load_shader("vertex.glsl")
     if conversion == CONVERSION.TO_MERCATOR:
-        fragmentShader = load_glsl("./src/shaders/fragment_to_mercator.glsl")
+        fragmentShader = load_shader("fragment_to_mercator.glsl")
     else:
-        fragmentShader = load_glsl("./src/shaders/fragment_to_equirectangular.glsl")
+        fragmentShader = load_shader("fragment_to_equirectangular.glsl")
 
     # Setup
     ctx = moderngl.create_standalone_context()
