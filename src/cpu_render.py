@@ -5,6 +5,9 @@ from .enums import CONVERSION
 # Max longitude in the equirectangular projection
 EQUI_LON = 2 * math.atan(math.pow(math.e, math.pi)) - math.pi * 0.5
 
+def clamp01(value):
+    return max(0, min(1, value))
+
 def remap(value, oldMin, oldMax, newMin, newMax):
     return ((value - oldMin) / (oldMax - oldMin)) * (newMax - newMin) + newMin
 
@@ -18,6 +21,9 @@ def equi_to_merc(u, v):
     # mercator to uv
     y = remap(y, -math.pi, math.pi, 0, 1)
 
+    # clamp
+    y = clamp01(y)
+
     return (u, y)
 
 def merc_to_equi(u, v):
@@ -29,6 +35,9 @@ def merc_to_equi(u, v):
 
     # equirectangular to uv
     y = remap(y, -EQUI_LON, EQUI_LON, 0, 1)
+
+    # clamp
+    y = clamp01(y)
 
     return (u, y)
 
@@ -60,8 +69,8 @@ def render(image: Image.Image, conversion: CONVERSION):
                 (u, v) = equi_to_merc(x / maxX, y / maxY)
 
             # Resample original image using converted UVs
-            sampleX = round(u * (image.width - 1))
-            sampleY = round(v * (image.height - 1))
+            sampleX = min(math.floor(u * image.width), image.width - 1)
+            sampleY = min(math.floor(v * image.height), image.height - 1)
             newPixels[x, y] = pixels[sampleX, sampleY]
         
         progress += 1
