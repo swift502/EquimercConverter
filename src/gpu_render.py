@@ -19,9 +19,9 @@ def render(image: Image.Image, conversion: CONVERSION, sampling: SAMPLING):
     # Setup
     ctx = moderngl.create_standalone_context()
     prog = ctx.program(vertex_shader=vertex_shader, fragment_shader=fragmentShader)
-    quad = numpy.array([-1, -1, 1, -1, -1, 1, 1, 1], dtype='f4')
+    quad = numpy.array([-1, -1, 1, -1, -1, 1, 1, 1], dtype="f4")
     vbo = ctx.buffer(quad)
-    vao = ctx.simple_vertex_array(prog, vbo, 'in_vert')
+    vao = ctx.simple_vertex_array(prog, vbo, "in_vert")
 
     # Texture
     texture = ctx.texture((image.width, image.height), len(image.mode), image.tobytes())

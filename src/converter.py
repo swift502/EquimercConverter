@@ -18,7 +18,7 @@ class Converter:
             image = Image.open(file)
 
             # Convert to RGB if the image is in palette mode
-            if image.mode == 'P':
+            if image.mode == "P":
                 print("\033[33mWarning:\033[0m Image is using indexed color mode, which is not supported. Converting to RGB.")
                 image = image.convert("RGB")
             

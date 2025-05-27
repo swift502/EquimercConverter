@@ -10,11 +10,11 @@ def append_suffix(filename, suffix):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('input', help="the input file path")
-    parser.add_argument('--to_equirectangular', action='store_true', help="convert to equirectangular")
-    parser.add_argument('--to_mercator', action='store_true', help="convert to mercator")
-    parser.add_argument('--nearest', action='store_true', help="force nearest sampling for the stretching that will occur due to change of aspect ratio")
-    parser.add_argument('--cpu', action='store_true', help="convert using CPU, much slower and doesn't support linear sampling")
+    parser.add_argument("input", help="the input file path")
+    parser.add_argument("--to_equirectangular", action="store_true", help="convert to equirectangular")
+    parser.add_argument("--to_mercator", action="store_true", help="convert to mercator")
+    parser.add_argument("--nearest", action="store_true", help="force nearest sampling for the stretching that will occur due to change of aspect ratio")
+    parser.add_argument("--cpu", action="store_true", help="convert using CPU, much slower and doesn't support linear sampling")
 
     args = parser.parse_args()
 

@@ -45,9 +45,9 @@ python convert.py merc.png --to_equirectangular
 python convert.py equi.png --to_mercator
 ```
 
-### Python
+### Python API
 
-You can use the Converter class directly in Python. Check out the [demo script](demo.py) to see how to run conversions from code.
+You can use the Converter class directly in Python. Check out the [test script](test.py) to see how to run conversions from code.
 
 ## Python package
 
