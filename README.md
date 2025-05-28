@@ -58,7 +58,7 @@ Input images have the following size limits:
   - To Equirectangular: 16384 x 32768
   - Exceeding these limits will result in `Error: the framebuffer is not complete (INCOMPLETE_ATTACHMENT)`
 - CPU (`--cpu`)
-  - CPU conversion should allow much larger images, but the process is still limited by available system memory. Converting anything above 16384^2 is likely to consume huge amounts of memory. There's also limits imposed by the Pillow library. https://pillow.readthedocs.io/en/stable/reference/limits.html
+  - CPU conversion should allow much larger images, but the process is still limited by available system memory. Converting anything above 16384 x 16384 is likely to consume huge amounts of memory. There's also limits imposed by the Pillow library. https://pillow.readthedocs.io/en/stable/reference/limits.html
 
 ## Python package
 
