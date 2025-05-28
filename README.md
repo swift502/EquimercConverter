@@ -57,7 +57,7 @@ Input images have the following size limits:
   - To Mercator: 32768 x 16384
   - To Equirectangular: 16384 x 32768
   - Exceeding these limits will result in `Error: the framebuffer is not complete (INCOMPLETE_ATTACHMENT)`
-- CPU
+- CPU (`--cpu`)
   - CPU conversion seems to be mainly limited by available system memory, but other limits in Pillow are also present: https://pillow.readthedocs.io/en/stable/reference/limits.html
 
 ## Python package
